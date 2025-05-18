@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Personal Finance Manager</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 1.5rem;
+        }
+
+        form {
+            margin-bottom: 2rem;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #f9f9f9;
+            margin-bottom: 0.5rem;
+            padding: 0.75rem;
+            border-left: 4px solid #4CAF50;
+        }
+
+        strong {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Personal Finance Manager</h1>
+    </header>
+
+    <div class="container">
+        <h2>Add Expense</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <h2>All Expenses</h2>
+        <p><strong>Total Expenses:</strong> ${{ total_expense }}</p>
+        <ul>
+            {% for expense in expenses %}
+                <li>{{ expense.date }}: {{ expense.title }} - ${{ expense.amount }} ({{ expense.category }})</li>
+            {% empty %}
+                <li>No expenses recorded yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
